@@ -1,3 +1,9 @@
+# Individual Boardgame CSVs
+./data/board_game_individual_reviews
+
+# All_user_reviews
+./data/all_user_reviews.csv
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
