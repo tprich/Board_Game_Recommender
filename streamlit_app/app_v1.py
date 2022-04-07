@@ -1,12 +1,13 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-from scipy import sparse
-from sklearn.metrics.pairwise import pairwise_distances, cosine_distances, cosine_similarity
 import pickle
 
+from pathlib import Path
+
 # IMPORTING RECOMMENDER AND BOARD GAME DATA FRAME
-with open('./recommender.pkl', 'rb') as f:
+pkl_path = Path(__file__).parents[1] / 'model/recommender.pkl'
+with open(pkl_path, 'rb') as f:
     recom = pickle.load(f)
 
 games = pd.read_csv('../data/top1000_updated.csv', index_col='rank')
