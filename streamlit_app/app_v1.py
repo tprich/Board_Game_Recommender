@@ -6,7 +6,7 @@ from sklearn.metrics.pairwise import pairwise_distances, cosine_distances, cosin
 import pickle
 
 # IMPORTING RECOMMENDER AND BOARD GAME DATA FRAME
-with open('./recommender.pkl', 'rb') as f:
+with open('https://github.com/tprich/Board_Game_Recommender/blob/main/model/recommender.pkl', 'rb') as f:
     recom = pickle.load(f)
 
 games = pd.read_csv('../data/top1000_updated.csv', index_col='rank')
