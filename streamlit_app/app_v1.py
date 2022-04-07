@@ -1,6 +1,9 @@
 import streamlit as st
-import pickle
+import numpy as np
 import pandas as pd
+from scipy import sparse
+from sklearn.metrics.pairwise import pairwise_distances, cosine_distances, cosine_similarity
+import pickle
 
 # IMPORTING RECOMMENDER AND BOARD GAME DATA FRAME
 with open('./recommender.pkl', 'rb') as f:
