@@ -3,7 +3,7 @@ import pickle
 import pandas as pd
 
 # IMPORTING RECOMMENDER AND BOARD GAME DATA FRAME
-with open('../model/recommender.pkl', 'rb') as f:
+with open('main/Board_Game_Recommender/model/recommender.pkl', 'rb') as f:
     recom = pickle.load(f)
 
 games = pd.read_csv('../data/top1000_updated.csv', index_col='rank')
