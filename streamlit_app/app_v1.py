@@ -3,11 +3,8 @@ import numpy as np
 import pandas as pd
 import pickle
 
-from pathlib import Path
-
 # IMPORTING RECOMMENDER AND BOARD GAME DATA FRAME
-pkl_path = Path(__file__).parents[1] / 'model/recommender.pkl'
-with open(pkl_path, 'rb') as f:
+with open('recommender.pkl', 'rb') as f:
     recom = pickle.load(f)
 
 games = pd.read_csv('../data/top1000_updated.csv', index_col='rank')
