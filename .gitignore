@@ -6,6 +6,7 @@ data/board_game_individual_reviews
 
 # All_user_reviews
 data/all_user_reviews.csv
+data/data.7z
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
