@@ -1,21 +1,18 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-from scipy import sparse
-from sklearn.metrics.pairwise import cosine_similarity
+import pickle
 
-# BOARD GAME DATA FRAME
-games = pd.read_csv('https://storage.googleapis.com/bg_recommender_data/top1000_updated.csv', index_col='rank')
+# Load Recommender
+st.cache
+def get_recommender():
+    with open('streamlit_app/recommender.pkl', 'rb') as f:
+        recommender = pickle.load(f)
+    return recommender
 
-@st.cache
-def create_recommender():
-    df = pd.read_csv('https://storage.googleapis.com/bg_recommender_data/all_user_reviews.csv')
-    pivot = df.pivot_table(values='rating', index='title', columns='user_id')
-    pivot_sparse = sparse.csr_matrix(pivot.fillna(0))
-    similarities = cosine_similarity(pivot_sparse)
-    return pd.DataFrame(similarities, index=pivot.index, columns=pivot.index)
+recom = get_recommender()
 
-recom = create_recommender()
+games = pd.read_csv('streamlit_app/top1000_updated.csv', index_col='rank')
 
 # QUERY TOOL
 @st.cache
