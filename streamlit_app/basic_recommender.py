@@ -3,13 +3,8 @@ import numpy as np
 import pandas as pd
 from scipy import sparse
 from sklearn.metrics.pairwise import cosine_similarity
-import pickle
 
 # BOARD GAME DATA FRAME
-# With pickle, which doesn't work when launching actual app
-# with open('recommender.pkl', 'rb') as f:
-#     recom = pickle.load(f)
-
 games = pd.read_csv('../data/top1000_updated.csv', index_col='rank')
 
 @st.cache
