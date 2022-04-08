@@ -5,7 +5,7 @@ from scipy import sparse
 from sklearn.metrics.pairwise import cosine_similarity
 
 # BOARD GAME DATA FRAME
-games = pd.read_csv('../data/top1000_updated.csv', index_col='rank')
+games = pd.read_csv('https://storage.googleapis.com/bg_recommender_data/top1000_updated.csv', index_col='rank')
 
 @st.cache
 def create_recommender():
