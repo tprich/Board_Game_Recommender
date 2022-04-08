@@ -7,20 +7,20 @@ import pickle
 
 # BOARD GAME DATA FRAME
 # With pickle, which doesn't work when launching actual app
-# with open('recommender.pkl', 'rb') as f:
-#     recom = pickle.load(f)
+with open('../../../model/recommender.pkl', 'rb') as f:
+    recom = pickle.load(f)
 
-games = pd.read_csv('../data/top1000_updated.csv', index_col='rank')
+games = pd.read_csv('../../data/top1000_updated.csv', index_col='rank')
 
-@st.cache
-def create_recommender():
-    df = pd.read_csv('https://storage.googleapis.com/bg_recommender_data/all_user_reviews.csv')
-    pivot = df.pivot_table(values='rating', index='title', columns='user_id')
-    pivot_sparse = sparse.csr_matrix(pivot.fillna(0))
-    similarities = cosine_similarity(pivot_sparse)
-    return pd.DataFrame(similarities, index=pivot.index, columns=pivot.index)
+# @st.cache
+# def create_recommender():
+#     df = pd.read_csv('https://storage.googleapis.com/bg_recommender_data/all_user_reviews.csv')
+#     pivot = df.pivot_table(values='rating', index='title', columns='user_id')
+#     pivot_sparse = sparse.csr_matrix(pivot.fillna(0))
+#     similarities = cosine_similarity(pivot_sparse)
+#     return pd.DataFrame(similarities, index=pivot.index, columns=pivot.index)
 
-recom = create_recommender()
+# recom = create_recommender()
 
 # QUERY TOOL
 @st.cache
