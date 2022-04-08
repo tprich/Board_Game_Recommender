@@ -3,7 +3,7 @@ import pandas as pd
 import pickle
 
 # Load Recommender
-st.cache
+@st.cache
 def get_recommender():
     with open('streamlit_app/recommender.pkl', 'rb') as f:
         recommender = pickle.load(f)
