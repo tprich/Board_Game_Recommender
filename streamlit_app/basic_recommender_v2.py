@@ -6,11 +6,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 import pickle
 
 # BOARD GAME DATA FRAME
-# With pickle, which doesn't work when launching actual app
-with open('tprich/Board_Game_Recommender/model/recommender.pkl', 'rb') as f:
-    recom = pickle.load(f)
-
-games = pd.read_csv('tprich/Board_Game_Recommender/data/top1000_updated.csv', index_col='rank')
+games = pd.read_csv('https://storage.googleapis.com/bg_recommender_data/top1000_updated.csv', index_col='rank')
 
 # @st.cache
 # def create_recommender():
@@ -20,7 +16,13 @@ games = pd.read_csv('tprich/Board_Game_Recommender/data/top1000_updated.csv', in
 #     similarities = cosine_similarity(pivot_sparse)
 #     return pd.DataFrame(similarities, index=pivot.index, columns=pivot.index)
 
-# recom = create_recommender()
+@st.cache
+def get_recommender():
+    with open('https://storage.googleapis.com/bg_recommender_data/recommender.pkl', 'rb') as f:
+        recommender = pickle.load(f)
+    return recommender
+    
+recom = get_recommender()
 
 # QUERY TOOL
 @st.cache
