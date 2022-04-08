@@ -7,10 +7,10 @@ import pickle
 
 # BOARD GAME DATA FRAME
 # With pickle, which doesn't work when launching actual app
-with open('../../../model/recommender.pkl', 'rb') as f:
+with open('Board_Game_Recommender/model/recommender.pkl', 'rb') as f:
     recom = pickle.load(f)
 
-games = pd.read_csv('../../data/top1000_updated.csv', index_col='rank')
+games = pd.read_csv('Board_Game_Recommender/data/top1000_updated.csv', index_col='rank')
 
 # @st.cache
 # def create_recommender():
