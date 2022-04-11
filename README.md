@@ -1,1 +1,4 @@
-# Board_Game_Recommender
+# Board Game Recommender
+
+UNDER CONSTRUCTION
+THANK YOU FOR YOUR PATIENCE
