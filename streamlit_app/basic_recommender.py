@@ -24,7 +24,7 @@ def query_tool(query):
 # START OF APP
 st.title('Board Game Recommender')
 
-st.markdown("""Welcome! This board game recommender uses the top 1,000 board games according to [boardgamegeek.com](https://boardgamegeek.com/) (as of March 16th, 2022) and provides you with the top 10 recommended boardgames to try. This recommender is based on user reviews to give the best matches for you.""")
+st.markdown("""Welcome! This board game recommender uses the top 1,000 board games according to [boardgamegeek.com](https://boardgamegeek.com/) (as of March 16th, 2022) and provides you with the top 10 recommended boardgames to try based on a board game you select. This recommender is based on user reviews to give the best matches for you.""")
 
 st.header('Enter a board game:')
 
