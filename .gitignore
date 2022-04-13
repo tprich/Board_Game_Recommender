@@ -3,10 +3,10 @@ Scratch_Notebook.ipynb
 
 # Individual Boardgame CSVs
 data/board_game_individual_reviews
+data/board_game_individual_reviews.zip
 
 # All_user_reviews
 data/all_user_reviews.csv
-data/data.7z
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
