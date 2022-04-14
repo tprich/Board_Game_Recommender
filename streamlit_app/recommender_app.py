@@ -5,9 +5,9 @@ import pickle
 # LOADING THE USER BASED RECOMMENDER AND GAMES DATAFRAME
 @st.cache
 def get_recommender():
-    with open('recommender.pkl', 'rb') as f: # READD streamlit_app/
+    with open('streamlit_app/recommender.pkl', 'rb') as f:
         recommender = pickle.load(f)
-    games = pd.read_csv('games_final.csv', index_col='rank')# READD streamlit_app/
+    games = pd.read_csv('streamlit_app/games_final.csv', index_col='rank')
     return recommender, games
 
 user_rec, games = get_recommender()
