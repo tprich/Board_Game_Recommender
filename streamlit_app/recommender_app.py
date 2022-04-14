@@ -5,9 +5,9 @@ import pickle
 # LOADING THE USER BASED RECOMMENDER AND GAMES DATAFRAME
 @st.cache
 def get_recommender():
-    with open('streamlit_app/recommender.pkl', 'rb') as f:
+    with open('recommender.pkl', 'rb') as f: # READD streamlit_app/
         recommender = pickle.load(f)
-    games = pd.read_csv('streamlit_app/games_final.csv', index_col='rank')
+    games = pd.read_csv('games_final.csv', index_col='rank')# READD streamlit_app/
     return recommender, games
 
 user_rec, games = get_recommender()
@@ -40,7 +40,10 @@ def category_filter(yr='Any', play=0, ptime='Any',
 
     # Filter by number of players
     if play != 0:
-        res = res[(res['min_players'] <= play) & (res['max_players'] >= play)]
+        if exact_play:
+            res = res[(res['min_players'] == play) & (res['max_players'] == play)]
+        else:
+            res = res[(res['min_players'] <= play) & (res['max_players'] >= play)]
     
     # Filter by average rating
     res = res[res['avg_rating'] >= rate]
@@ -121,7 +124,7 @@ st.markdown("""Welcome, and thank you for visiting my board game recommender! Th
 
 recom_select = st.sidebar.radio(
     'Pick how you want to get your recommendations',
-    ('Based on a game.', 'Choose a game and then filter by features.', 'Explore by filtering features.'))
+    ('Based on a game.', 'Explore by filtering features.')) # Add back in 'Choose a game and then filter by features.',
 
 # Based on a game
 if recom_select == 'Based on a game.':  # use or to show both?
@@ -133,13 +136,13 @@ if recom_select == 'Based on a game.':  # use or to show both?
     res = query_tool(option)
 
     if st.button('Recommendations Please!'):
-        st.header(f'People who enjoyed {option} also enjoyed:')
+        st.markdown(f'##### People who enjoyed {option} also enjoyed:')
         for i in range(10):
             st.markdown(f"""[{res['game_name'][i]}](https://boardgamegeek.com/boardgame/{res['game_id'][i]})""")
 
-# Choose a game and then filter by features.
-elif recom_select == 'Choose a game and then filter by features.':
-    st.write('Update in Progress')
+# # Choose a game and then filter by features.
+# elif recom_select == 'Choose a game and then filter by features.':
+#     st.write('Update in Progress')
 
 # Explore by filtering features.
 elif recom_select == 'Explore by filtering features.':
@@ -157,8 +160,10 @@ elif recom_select == 'Explore by filtering features.':
     # Number of players
     play=0
     if st.checkbox('Number of Players'):
-        play = st.number_input('Enter the number of players:',
+        exact_play = st.checkbox('Only show games with exact number of players (i.e. 2-player only games, etc.)')
+        play = st.number_input('Enter the minimum number of players:',
         step=1, min_value=1)
+        
 
     # Select rating
     rate = 6.5
@@ -168,9 +173,9 @@ elif recom_select == 'Explore by filtering features.':
 
     # Select Complexity
     comp = 0
-    if st.checkbox('Difficulty'):
-        comp = st.slider('''Select difficulty 
-        (recommendations will be within 0.5 of complexity weight):''',
+    if st.checkbox('Weight'):
+        comp = st.slider('''Select weight 
+        (recommendations will be within 0.5 of weight):''',
         1.0, 5.0, 1.0, .1)
         if comp < 2.0:
             st.caption('Easy: Beginner friendly and easy to pick up and learn')
@@ -211,26 +216,27 @@ elif recom_select == 'Explore by filtering features.':
             st.warning('Only select 3 Designers.')
     # Select publishers
     pubs = []
-    if st.checkbox('Game Publisher'):
+    if st.checkbox('Game Publisher(s)'):
         pubs = st.multiselect(
             'Select up to 3 Publishers that you are interested in:',
             pubs_list, key=str)
         if len(pubs) > 3:
             st.warning('Only select 3 Publishers.')
 
-    if st.button('Test'):
+    if st.button('Recommendations Please!'):
         filtered = category_filter(yr, play, ptime, age, comp, cat, des, pubs, rate).reset_index()
         if len(filtered.index) == 0:
             st.warning('Sorry, no board games in this recommender match all of your selections. Please adjust your filters and try again.')
         elif len(filtered.index) < 10:
-            st.markdown('Based on your selections, you may want to try:')
+            st.markdown('##### Based on your selections, you may want to try:')
             for i in range(len(filtered.index)):
                 st.markdown(f"""[{filtered['game_name'][i]}](https://boardgamegeek.com/boardgame/{filtered['game_id'][i]})""")
         else:
-            st.markdown('Your top 10 results to try are:')
+            st.markdown('##### Your top 10 results to try are:')
             for i in range(10):
                 st.markdown(f"""[{filtered['game_name'][i]}](https://boardgamegeek.com/boardgame/{filtered['game_id'][i]})""")
             st.markdown('Your filters returned more than 10 results. Try using more filters to narrow down your results more.')
 
-
+st.markdown('##')
+st.markdown('##')
 st.markdown("""Thanks to BoardGameGeek for providing the games, reviews, and all related data under the [Attribution-NonCommercial-ShareAlike 3.0 Unported license](https://creativecommons.org/licenses/by-nc-sa/3.0/).""")
