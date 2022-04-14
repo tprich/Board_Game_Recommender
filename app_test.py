@@ -95,7 +95,10 @@ def get_lists():
 
 cat_list, des_list, pubs_list = get_lists()
 
+# START OF APP
 st.title('Test')
+
+st.markdown('For this recommender, select the game features that you want to filter by. Please note that you will get games that match your selections exactly, so you may end up with no results. If that happens, try expanding your selection criteria.')
 
 # Select categories
 cat=[]
@@ -171,5 +174,15 @@ if st.checkbox('Game Publisher'):
         st.warning('Only select 3 Publishers.')
 
 if st.button('Test'):
-    filtered = category_filter(yr, play, ptime, age, comp, cat, des, pubs, rate)
-    st.dataframe(filtered)
+    filtered = category_filter(yr, play, ptime, age, comp, cat, des, pubs, rate).reset_index()
+    if len(filtered.index) == 0:
+        st.warning('Sorry, no board games in this recommender match all of your selections. Please adjust your filters and try again.')
+    elif len(filtered.index) < 10:
+        st.markdown('Based on your selections, you may want to try:')
+        for i in range(len(filtered.index)):
+            st.markdown(f"""[{filtered['game_name'][i]}](https://boardgamegeek.com/boardgame/{filtered['game_id'][i]})""")
+    else:
+        st.markdown('Your top 10 results to try are:')
+        for i in range(10):
+            st.markdown(f"""[{filtered['game_name'][i]}](https://boardgamegeek.com/boardgame/{filtered['game_id'][i]})""")
+        st.markdown('Your filters returned more than 10 results. Try using more filters to narrow down your results more.')
