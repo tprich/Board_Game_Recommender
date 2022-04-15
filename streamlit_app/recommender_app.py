@@ -121,7 +121,7 @@ cat_list, des_list, pubs_list = get_lists()
 # START OF APP ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 st.title('Board Game Recommender', anchor='Title')
 
-st.markdown("""Welcome, and thank you for visiting my board game recommender! This app uses data on the top 1,000 board games from [boardgamegeek.com](https://boardgamegeek.com/) (as of March 16th, 2022) to give recommendations 3 different ways. Select an option from the side panel to get started!""")
+st.markdown("""Welcome, and thank you for visiting my board game recommender! This app uses data on the top 1,000 board games from [boardgamegeek.com](https://boardgamegeek.com/) (as of March 16th, 2022) to give recommendations 2 different ways. Select an option from the side panel to get started!""")
 
 
 recom_select =  st.sidebar.radio(
