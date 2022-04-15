@@ -2,10 +2,12 @@ import streamlit as st
 import pandas as pd
 import pickle
 
+st.set_page_config(page_title='Board Game Recommender')
+
 # LOADING THE USER BASED RECOMMENDER AND GAMES DATAFRAME
 @st.cache
 def get_recommender():
-    with open('streamlit_app/recommender.pkl', 'rb') as f:
+    with open('streamlit_app/recommender.pkl', 'rb') as f: 
         recommender = pickle.load(f)
     games = pd.read_csv('streamlit_app/games_final.csv', index_col='rank')
     return recommender, games
@@ -117,12 +119,12 @@ def get_lists():
 cat_list, des_list, pubs_list = get_lists()
 
 # START OF APP ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-st.title('Board Game Recommender')
+st.title('Board Game Recommender', anchor='Title')
 
 st.markdown("""Welcome, and thank you for visiting my board game recommender! This app uses data on the top 1,000 board games from [boardgamegeek.com](https://boardgamegeek.com/) (as of March 16th, 2022) to give recommendations 3 different ways. Select an option from the side panel to get started!""")
 
 
-recom_select = st.sidebar.radio(
+recom_select =  st.sidebar.radio(
     'Pick how you want to get your recommendations',
     ('Based on a game.', 'Explore by filtering features.')) # Add back in 'Choose a game and then filter by features.',
 
@@ -130,7 +132,7 @@ recom_select = st.sidebar.radio(
 if recom_select == 'Based on a game.':  # use or to show both?
     st.markdown("""For this option, select a board game and you will get recommendations based on over 11 million user reviews to give the best matches.""")
 
-    st.header('Enter a board game:')
+    st.markdown('#### Enter a board game:')
 
     option = st.selectbox(label = 'Type or select a board game:', options=games['game_name'].sort_values())
     res = query_tool(option)
@@ -160,6 +162,7 @@ elif recom_select == 'Explore by filtering features.':
     # Number of players
     play=0
     if st.checkbox('Number of Players'):
+        st.markdown('##')
         exact_play = st.checkbox('Only show games with exact number of players (i.e. 2-player only games, etc.)')
         play = st.number_input('Enter the minimum number of players:',
         step=1, min_value=1)
