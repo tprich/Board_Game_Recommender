@@ -5,7 +5,7 @@
 
 ## Do You Like Games?
 
-One of my favorite activities is playing board games with friends and family. From cooperative games like [Betrayal at House on the Hill]( https://boardgamegeek.com/boardgame/10547/betrayal-house-hill) to everyone for themselves games like [Ticket to Ride](https://boardgamegeek.com/boardgame/9209/ticket-ride), we play them all. The problem is that after playing the same games over and over again, we want to try something new but don’t always know where to start. Do we want to choose a game based on how many people we have for the game session, or do we want to try something like what we already have played? That led me to working on this project, a board game recommender app that can give recommendations based on user reviews or by categories and features. If you like board games and want to get some ideas on what to play next, check out the app at the link above. 
+One of my favorite activities is playing board games with friends and family. From cooperative games like [Betrayal at House on the Hill](https://boardgamegeek.com/boardgame/10547/betrayal-house-hill) to everyone for themselves games like [Ticket to Ride](https://boardgamegeek.com/boardgame/9209/ticket-ride), we play them all. The problem is that after playing the same games over and over again, we want to try something new but don’t always know where to start. Do we want to choose a game based on how many people we have for the game session, or do we want to try something like what we already have played? That led me to working on this project, a board game recommender app that can give recommendations based on user reviews or by categories and features. If you like board games and want to get some ideas on what to play next, check out the app at the link above. 
 
 
 ## Where the Data Came From
@@ -14,21 +14,30 @@ All of the data for this project comes from [BoardGameGeek](https://boardgamegee
 
 
 ## How the User-Based Recommender was Built
+See [2.1_User_Based_Recommender](./code/2.1_User_Based_Recommender.ipynb)
+
+
+## How the Feature Filter was Built
+See [2.2_Category_Based_Recommender](./code/2.2_Category_Based_Recommender.ipynb)
+
+
+## About the App
 
 
 
+## Fun Facts about the Top 1,000 Board Games
+See [3_EDA](./code/3_EDA.ipynb)
 
 
+## What's Next?
 
+This project was a lot of fun, and can be considered a work in progress. There are a couple things that I am still working on and some that I am thinking about maybe adding in later. Starting with the app, I would like to turn the slider for the weights into a range slider so that the user can specify the range themselves instead of it being a fixed 0.5 above or below the selected value. I would also like to create a joint recommender that allows you to filter by categories and by user recommendations based on a game. I was close to getting it to work but I ran out of time to get it up and running before my presentation of the app. Those would be the first changes I'd make.
 
+I would then focus on the user-based recommender and filter function. For the filter function, I would like to add in mechanics as a filter option and clean up the code as a whole. While relatively easy to read, I feel that it could be more dynamic and allow for more than 3 categories to be selected for example. I tried a couple of different methods but it did not work properly in time. Due to the limits placed on the app by Streamlit, it might be better to keep selectable categories and such limited. At the free tier, the app can only use 1 gb of resources. If I make it too dynamic and resource heavy to put everything I want into it, I may hit that cap. 
 
+For the user-based recommender, I would look at making the recommendations more narrow. I was talking to my friends who have tested the app for me and they pointed out that sometimes the recommendations seem a little too different from the game that was entered. There is some merrit to including serendipitous recommendations, but the majority should be similar to the game in question. For example, [Betrayal at House on the Hill](https://boardgamegeek.com/boardgame/10547/betrayal-house-hill) has [Codenames](https://boardgamegeek.com/boardgame/178900/codenames) as the third recommendation. Codenames is a very different game mechanically and thematically from Betrayal at House on the Hill. However, it is a good game to play with 4 or more people, so it makes sense users rated both highly and should be a serendipitous recommendation. I think it would be beneficial to make the first 8 or so recommendations have either a category or mechanic similar to the game selected so that the recommendations are a little more focused. 
 
-
-
-
-
-
-
+The last two ideas I am mulling over are how to make the streamlit app more efficient if possible and including even more board games in the recommender. Like I said above, this was my first app using streamlit and there are so many things that I didn't have time to really dive deep into that may make the app more efficient and take up less resources. This could lead to me including more games in the recommender to give even better results. This would include running the API from the beginning again since the rankings will have changed and more reviews added, giving new data. That wouldn't be much of an issue using a [Google Cloud](https://cloud.google.com) virtual machine. I would be more concerned about the amount of resources the app uses and the 1 gb limit. I look forward to improving my app, recommender, and filter system even more in the coming months to push myself even further in this project. 
 
 
 ##### Thanks again to BoardGameGeek for providing the games, reviews, and all related data under the [Attribution-NonCommercial-ShareAlike 3.0 Unported license](https://creativecommons.org/licenses/by-nc-sa/3.0/).
