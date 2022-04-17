@@ -61,9 +61,9 @@ Data Dictionary
 |min_age|int|Minimum age to play the game according to the game's creators.|
 |avg_rating|float|The average rating for the game based on user ratings.|
 |complexity|float|The [weight](https://boardgamegeek.com/wiki/page/Weight) of the game as determined by the BoardGameGeek community.|
-|categories|str|The categories attributed to the game, separated by "|"|
-|designers|str|The designers of the game, separated by "|"|
-|publishers|str|The publishers of the game, separated by "|". Note: This feature will include all the publishers of the game from around the world, not just the initial publisher or main publisher.|
+|categories|str|The categories attributed to the game, separated by "\|"|
+|designers|str|The designers of the game, separated by "\|"|
+|publishers|str|The publishers of the game, separated by "\|". Note: This feature will include all the publishers of the game from around the world, not just the initial publisher or main publisher.|
 |rank|int|The board game's ranking as of March 16th, 2022.|
 
 
