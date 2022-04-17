@@ -42,10 +42,17 @@ When combined with the feature data, I learned more about these games. The avera
 
 These were the discoveries that stuck out the most to me for the most and least rated games. Since the focus of this project was the recommender app itself, I didn't do that much more EDA, but you can view the [EDA notebook](./code/3_EDA.ipynb) to see what else I found.
 
+
 ## How the Feature Filter was Built
 
+The feature filter was built off of data that was scrapped using the GeekDo API and run as a [script](./code/bg_details_for_cloud.py) on [Google's Compute Engine](https://cloud.google.com/compute). The script ran for approximately 3 hours and collected all of the information into a single csv called [game_details](./data/game_details.csv). In the notebook titled [2.2_Category_Based_Recommender](./code/2.2_Category_Based_Recommender.ipynb), I take all of the raw data for each game and go through the `NaN` values, fixing them when appropriate, and determining the range of values for the numeric features and lists of values for the object features. For the sake of time, I focused only on the features in the data dictionary below, leaving the others in the raw data in case I want to use them later. I plan on introducing `mechanics` into the filter function in the near future. Please look at the [notebook](./code/2.2_Category_Based_Recommender.ipynb) to see all of the features and how the nulls were filled in. The final, cleaned version of the dataframe was saved as the file titled [games_final](./data/games_final.csv) that was used in the Streamlit app.
 
-See [2.2_Category_Based_Recommender](./code/2.2_Category_Based_Recommender.ipynb)
+After determining all of the ranges and creating the lists of values, I set out to create a filter function that narrowed down the games dataframe by feature to generate a final recommendation dataframe. It returned exact results, so the more features being filtered, the fewer results returned. It is also currently designed to limit the `categories`, `designers`, and `publishers` features to only 3 each. This is partially to limit the resources used when filtering the data frame (see the "What's Next?" section for more details on this). The filter function was added as the second option in the app.
+
+Data Dictionary
+|Feature|Type|Dataset|Description|
+|---|---|---|---|
+
 
 
 ## About the App
