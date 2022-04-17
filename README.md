@@ -21,11 +21,23 @@ After the script completed and all the csv files were downloaded, I began work i
 
 Now that everything was prepped, my next step was to create a pivot table using `rating`, `title`, and `user_id` from the user reviews dataframe and then create a sparse matrix from that using `scipy`. Next I used the `pairwise` module from sci-kit learn to generate each game's cosine similarities, which then became a dataframe. This dataframe was then saved as a pickle to be used in the app along with the query function I created to give recommendations based on a board game. Scroll down to the app section to learn more about how the code was implemented. 
 
-I did some exploratory data analysis using the user reviews in the [3_EDA notebook](./code/3_EDA.ipynb) to determine what games had the most and fewest ratings. You can see the results below.
+I did some exploratory data analysis using the user reviews in the [3_EDA notebook](./code/3_EDA.ipynb) to determine what games had the most and fewest ratings. As you can see in the results below, [Pandemic](https://boardgamegeek.com/boardgame/30549/pandemic) has the most ratings at over 110,000 and [Unmatched: Jurassic Park - InGen vs Raptors](https://boardgamegeek.com/boardgame/284777/unmatched-jurassic-park-ingen-vs-raptors) has the least amount of ratings at just a bit over 1,200.
 
 <table><tr>
     <td><img src='./presentation/images/most_ratings_original.jpg'/></td>
     <td><img src='./presentation/images/least_ratings_original.jpg'/></td>
+    </tr></table>
+
+When combined with the feature data, some interesting trends pop up. The average rating for the most rated games was 7.69, which is lower than the least rated games that had an average rating of 8.16. Below you can find a breakdown of the [weights](https://boardgamegeek.com/wiki/page/Weight) for these games and their categories. You will notice that the games with more ratings are almost all below a 3 on weight while most of the games with the fewest ratings have a majority over 3. Categorically, the games are similar with the biggest exception being that half the most rated games have 'Economic' as a category and half of the least rated games have 'Wargame' as a category. 
+
+<table><tr>
+    <td><img src='./presentation/images/most_ratings_weight.jpg'/></td>
+    <td><img src='./presentation/images/least_ratings_weight.jpg'/></td>
+    </tr></table>
+
+<table><tr>
+    <td><img src='./presentation/images/most_ratings_cats.jpg'/></td>
+    <td><img src='./presentation/images/least_ratings_cats.jpg'/></td>
     </tr></table>
 
 
