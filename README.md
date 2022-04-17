@@ -10,23 +10,32 @@ One of my favorite activities is playing board games with friends and family. Fr
 
 ## Where the Data Came From
 
-All of the data for this project comes from [BoardGameGeek](https://boardgamegeek.com). Thank you BoardGameGeek for providing all of the data for use under the [Attribution-NonCommercial-ShareAlike 3.0 Unported license](https://creativecommons.org/licenses/by-nc-sa/3.0/). There is an API specifically for use with BoardGameGeek and it's sister sites, [RPGGeek](https://rpggeek.com/) and [VideoGameGeek](https://videogamegeek.com/). The API link is `https://api.geekdo.com/xmlapi2/thing`. Note that the link uses `xmlapi2`, which is the latest version of BoardGameGeek's API. To use it yourself, follow the instructions found [here](https://boardgamegeek.com/wiki/page/BGG_XML_API2). Make sure to follow all rules in the [terms of use](https://boardgamegeek.com/wiki/page/XML_API_Terms_of_Use#) and check out the related articles to make the API work for you. The only data that was scrapped without using the API was the name, id, and rank of the top 1,000 games. To obtain this information, a simple webscrap using Python on the [Browse](https://boardgamegeek.com/browse/boardgame) pages. Please look at [1_Data_Gathering notebook](./code/1_Data_Gathering.ipynb) for more details on the data gathering for this project.
+All of the data for this project comes from [BoardGameGeek](https://boardgamegeek.com). Thank you BoardGameGeek for providing all of the data for use under the [Attribution-NonCommercial-ShareAlike 3.0 Unported license](https://creativecommons.org/licenses/by-nc-sa/3.0/). There is an API specifically for use with BoardGameGeek and it's sister sites, [RPGGeek](https://rpggeek.com/) and [VideoGameGeek](https://videogamegeek.com/). The API link is `https://api.geekdo.com/xmlapi2/thing`. Note that the link uses `xmlapi2`, which is the latest version of BoardGameGeek's API. To use it yourself, follow the instructions found [here](https://boardgamegeek.com/wiki/page/BGG_XML_API2). Make sure to follow all rules in the [terms of use](https://boardgamegeek.com/wiki/page/XML_API_Terms_of_Use#) and check out the related articles to make the API work for you. The only data that was scrapped without using the API was the name, id, and rank of the top 1,000 games. To obtain this information, a simple webscrap using Python on the [Browse](https://boardgamegeek.com/browse/boardgame) pages. The scrape for the top 1,000 games was run on March 16th, 2022. Please look at [1_Data_Gathering notebook](./code/1_Data_Gathering.ipynb) for more details on the data gathering for this project.
 
 
-## How the User-Based Recommender was Built
-See [2.1_User_Based_Recommender](./code/2.1_User_Based_Recommender.ipynb)
+## The User-Based Recommender
+
+The user-based recommender is built on 11,170,197 reviews that was gathered using the GeekDo API that ran from March 18th to March 31st, 2022. The intial version of the script can be found in the [1_Data_Gathering notebook](./code/1_Data_Gathering.ipynb) and the final version is [ratings_api_for_google_cloud.py](./code/ratings_api_for_google_cloud.py). The code was run using a Linux virtual machine through [Google's Compute Engine](https://cloud.google.com/compute) on [Google's Cloud Platform](https://cloud.google.com). By utilizing a virtual machine, the code could be run continously until it was completed without taking up any of my computer's resources, freeing me up to continue working on other projects in the meantime. The script was set up so that after all the user ratings for a game were collected, a csv for that game was created before moving on to the next game. I set it up this way so that if the script had an error that caused it to stop running, all of the already scrapped data would not be lost and the script could pick up where it left off once restarted. This led to the creation of 1,000 csv files, one for each game. You will not find There is a zipped folder of the files that can be downloaded [here](https://storage.googleapis.com/bg_recommender_data/board_game_individual_reviews.zip) from [Google's Cloud Storage](https://cloud.google.com/storage/).
+
+After the script completed and all the csv files were downloaded, I began work in the [2.1_User_Based_Recommender notebook](./code/2.1_User_Based_Recommender.ipynb) to combine all the files into one dataframe. I first checked for nulls and masked the usernames with code numbers. I discovered that some of the boardgames had duplicate names and I had to manually go in and rename them with the year to avoid any issues with the recommender. Next I merged the reviews dataframe with the board games dataframe by id and then saved that dataframe to a csv. It is a large csv and can't be uploaded to GitHub, but you can download it [here](https://storage.googleapis.com/bg_recommender_data/all_user_reviews.csv) from my project's Google Cloud bucket. 
+
+Now that everything was prepped, my next step was to create a pivot table using `rating`, `title`, and `user_id` from the user reviews dataframe and then create a sparse matrix from that using `scipy`. Next I used the `pairwise` module from sci-kit learn to generate each game's cosine similarities, which then became a dataframe. This dataframe was then saved as a pickle to be used in the app along with the query function I created to give recommendations based on a board game. Scroll down to the app section to learn more about how the code was implemented. 
+
+I did some exploratory data analysis using the user reviews in the [3_EDA notebook](./code/3_EDA.ipynb) to determine what games had the most and fewest ratings. You can see the results below.
+
+<table><tr>
+    <td><img src='./presentation/images/most_ratings_original.jpg'/></td>
+    <td><img src='./presentation/images/least_ratings_original.jpg'/></td>
+    </tr></table>
 
 
 ## How the Feature Filter was Built
+
+
 See [2.2_Category_Based_Recommender](./code/2.2_Category_Based_Recommender.ipynb)
 
 
 ## About the App
-
-
-
-## Fun Facts about the Top 1,000 Board Games
-See [3_EDA](./code/3_EDA.ipynb)
 
 
 ## What's Next?
