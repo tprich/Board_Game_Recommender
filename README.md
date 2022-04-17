@@ -28,7 +28,7 @@ I did some exploratory data analysis using the user reviews in the [3_EDA notebo
     <td><img src='./presentation/images/least_ratings_original.jpg'/></td>
     </tr></table>
 
-When combined with the feature data, some interesting trends pop up. The average rating for the most rated games was 7.69, which is lower than the least rated games that had an average rating of 8.16. Below you can find a breakdown of the [weights](https://boardgamegeek.com/wiki/page/Weight) for these games and their categories. You will notice that the games with more ratings are almost all below a 3 on weight while most of the games with the fewest ratings have a majority over 3. Categorically, the games are similar with the biggest exception being that half the most rated games have 'Economic' as a category and half of the least rated games have 'Wargame' as a category. 
+When combined with the feature data, I learned more about these games. The average rating for the most rated games was 7.69, which is lower than the least rated games that had an average rating of 8.16. Below you can find a breakdown of the [weights](https://boardgamegeek.com/wiki/page/Weight) for these games and their categories. You will notice that the games with more ratings are almost all below a 3 on weight while most of the games with the fewest ratings have a majority over 3. Categorically, the games are similar with the biggest exception being that half the most rated games have 'Economic' as a category and half of the least rated games have 'Wargame' as a category. 
 
 <table><tr>
     <td><img src='./presentation/images/most_ratings_weight.jpg'/></td>
@@ -40,6 +40,7 @@ When combined with the feature data, some interesting trends pop up. The average
     <td><img src='./presentation/images/least_ratings_cats.jpg'/></td>
     </tr></table>
 
+These were the discoveries that stuck out the most to me for the most and least rated games. Since the focus of this project was the recommender app itself, I didn't do that much more EDA, but you can view the [EDA notebook](./code/3_EDA.ipynb) to see what else I found.
 
 ## How the Feature Filter was Built
 
