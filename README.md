@@ -80,7 +80,9 @@ I also graphed the top categories, designers, and publishers, which you can find
 
 [Click here to go directly to the app.](https://share.streamlit.io/tprich/board_game_recommender/main/streamlit_app/recommender_app.py)
 
+After generating the user-based recommender, I created the first version of the app in [Streamlit](https://streamlit.io). This was my first time using Streamlit, and I found it rather intuitive and easy to use. This initial version was pretty simple, with the only input being a text input that has the options available. It used the pickled recommender from the [2.1 notebook](./code/2.1_User_Based_Recommender.ipynb) to generate the top 10 recommendations based on what other users also rated highly. That was the foundation used for the next version of the app that added the feature filter.
 
+In order to have the option to switch between user recommendations and filtering by features, I first created a sidebar that lets you pick what version of the recommender you would like to use. The filter function, taken directly from the [2.2 notebook](./code/2.2_Category_Based_Recommender.ipynb), was a little tricker to implement as there were a couple different types of inputs needed. There was also the issue of setting up the intial inputs should you not want to filter by that feature. To solve this problem, I made it so that if you want to filter using a feature, you must first select the feature and then what you want the value to be. Once implemented, the filter function worked as it should, providing results that matched what the searcher was looking for. This is the current version of the app that is available at the link above. If you want to look at the code, you can find everything for the app in the [streamlit_app directory](./streamlit_app). I do plan on improving and adding to the app, and you can find more details about that in the sectino below.
 
 
 ## What's Next?
