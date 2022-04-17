@@ -43,19 +43,44 @@ When combined with the feature data, I learned more about these games. The avera
 These were the discoveries that stuck out the most to me for the most and least rated games. Since the focus of this project was the recommender app itself, I didn't do that much more EDA, but you can view the [EDA notebook](./code/3_EDA.ipynb) to see what else I found.
 
 
-## How the Feature Filter was Built
+## The Feature Filter (and Feature Data)
 
 The feature filter was built off of data that was scrapped using the GeekDo API and run as a [script](./code/bg_details_for_cloud.py) on [Google's Compute Engine](https://cloud.google.com/compute). The script ran for approximately 3 hours and collected all of the information into a single csv called [game_details](./data/game_details.csv). In the notebook titled [2.2_Category_Based_Recommender](./code/2.2_Category_Based_Recommender.ipynb), I take all of the raw data for each game and go through the `NaN` values, fixing them when appropriate, and determining the range of values for the numeric features and lists of values for the object features. For the sake of time, I focused only on the features in the data dictionary below, leaving the others in the raw data in case I want to use them later. I plan on introducing `mechanics` into the filter function in the near future. Please look at the [notebook](./code/2.2_Category_Based_Recommender.ipynb) to see all of the features and how the nulls were filled in. The final, cleaned version of the dataframe was saved as the file titled [games_final](./data/games_final.csv) that was used in the Streamlit app.
 
 After determining all of the ranges and creating the lists of values, I set out to create a filter function that narrowed down the games dataframe by feature to generate a final recommendation dataframe. It returned exact results, so the more features being filtered, the fewer results returned. It is also currently designed to limit the `categories`, `designers`, and `publishers` features to only 3 each. This is partially to limit the resources used when filtering the data frame (see the "What's Next?" section for more details on this). The filter function was added as the second option in the app.
 
 Data Dictionary
-|Feature|Type|Dataset|Description|
-|---|---|---|---|
+|Feature|Type|Description|
+|---|---|---|
+|game_id|int|Identifying number for the game. Prevents confusion between board games with the same name.|
+|game_name|str|Name of the board game. Games with the same name will have the year to denote the difference.|
+|game_yr_pub|int|Year the game was published.|
+|min_players|int|Minimum number of players listed by the game.|
+|max_players|int|Maximum number of players listed by the game.|
+|min_play_time|int|Minimum length of time needed to play the game to completion according to the game's creators.|
+|min_age|int|Minimum age to play the game according to the game's creators.|
+|avg_rating|float|The average rating for the game based on user ratings.|
+|complexity|float|The [weight](https://boardgamegeek.com/wiki/page/Weight) of the game as determined by the BoardGameGeek community.|
+|categories|str|The categories attributed to the game, separated by "|"|
+|designers|str|The designers of the game, separated by "|"|
+|publishers|str|The publishers of the game, separated by "|". Note: This feature will include all the publishers of the game from around the world, not just the initial publisher or main publisher.|
+|rank|int|The board game's ranking as of March 16th, 2022.|
 
+
+I did some EDA on this data as whole in the [EDA notebook](./code/3_EDA.ipynb). I plotted the average rating and the weights for the games and found some interesting details. The average rating is around 7.5, but it has skewed slightly right. I expected it to be more skewed to the right with more games being closer to 7, but I was wrong. I also expected the weights to be skewed more right than they are, but in reality they are close to a normal distribution.
+
+<img src='./presentation/images/rate_all.jpg'/>
+
+<img src='./presentation/images/weights_all.jpg'/>
+
+I also graphed the top categories, designers, and publishers, which you can find in the [3_EDA notebook](./code/3_EDA.ipynb). This was just for fun and not important to my recommender app, but it does provide some insight into the top 1,000 games. It may also be useful in the future to help determine what features might be useful in improving the focus of the recommendations based on a game (see "What's Next?" below).
 
 
 ## About the App
+
+[Click here to go directly to the app.](https://share.streamlit.io/tprich/board_game_recommender/main/streamlit_app/recommender_app.py)
+
+
 
 
 ## What's Next?
